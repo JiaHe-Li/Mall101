@@ -1,0 +1,42 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product_route
+            #lb是负载均衡
+          uri: lb://product1
+          predicates:
+            - Path=/api/product1/**
+          filters:
+              #去掉api后面的所有内容去掉api
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: product_route
+            #lb是负载均衡
+          uri: lb://ware2
+          predicates:
+            - Path=/api/ware2/**
+          filters:
+            #去掉api后面的所有内容去掉api
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: thirdparty_route
+            #lb是负载均衡
+          uri: lb://thirdparty
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+        - id: member_route
+            #lb是负载均衡
+          uri: lb://member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: admin_route
+          #lb是负载均衡
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          #目标是让网关转发给 renren-fast服务器 http：//localhost:8000/renren-fast/captcha.jpg 才能正常拿到验证码
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}

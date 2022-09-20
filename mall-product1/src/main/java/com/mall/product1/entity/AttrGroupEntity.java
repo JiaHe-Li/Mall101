@@ -1,0 +1,54 @@
+package com.mall.product1.entity;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serializable;
+import java.util.Date;
+import lombok.Data;
+
+/**
+ * 属性分组
+ * 
+ * @author jiahe
+ * @email lijiahe888888@gmail.com
+ * @date 2022-09-04 21:29:00
+ */
+@Data
+@TableName("pms_attr_group")
+public class AttrGroupEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 分组id
+	 */
+	@TableId
+	private Long attrGroupId;
+	/**
+	 * 组名
+	 */
+	private String attrGroupName;
+	/**
+	 * 排序
+	 */
+	private Integer sort;
+	/**
+	 * 描述
+	 */
+	private String descript;
+	/**
+	 * 组图标
+	 */
+	private String icon;
+	/**
+	 * 所属分类id
+	 */
+	private Long catelogId;
+
+	// 分类信息的完整路径
+	//标记数据库中不存在
+	@TableField(exist = false)
+	private Long[] catelogPath;
+
+}
